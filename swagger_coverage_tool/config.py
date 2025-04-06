@@ -1,3 +1,5 @@
+import importlib.metadata
+import importlib.resources
 import os
 from functools import lru_cache
 from pathlib import Path
@@ -58,9 +60,12 @@ class Settings(BaseSettings):
     html_report_file: Path | None = Path(os.path.join(os.getcwd(), "index.html"))
     json_report_file: Path | None = Path(os.path.join(os.getcwd(), "coverage-report.json"))
 
-    html_report_template_file: Path = Path(
-        os.path.join(os.getcwd(), "swagger_coverage_tool/src/reports/templates/index.html")
-    )
+    @property
+    def html_report_template_file(self):
+        try:
+            return importlib.resources.files("swagger_coverage_tool.src.reports.templates") / "index.html"
+        except importlib.metadata.PackageNotFoundError:
+            return Path(os.path.join(os.getcwd(), "swagger_coverage_tool/src/reports/templates/index.html"))
 
     @classmethod
     def settings_customise_sources(
