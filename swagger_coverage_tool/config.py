@@ -34,6 +34,8 @@ class ServiceConfig(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
+        extra='allow',
+
         env_file=os.path.join(os.getcwd(), ".env"),
         env_prefix="SWAGGER_COVERAGE_",
         env_file_encoding="utf-8",
