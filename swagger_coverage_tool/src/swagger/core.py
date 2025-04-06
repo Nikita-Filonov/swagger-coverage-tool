@@ -1,8 +1,8 @@
 import httpx
 
-from config import ServiceConfig
-from src.swagger.models import SwaggerNormalized, SwaggerRaw
-from src.tools.logger import get_logger
+from swagger_coverage_tool.config import ServiceConfig
+from swagger_coverage_tool.src.swagger.models import SwaggerNormalized, SwaggerRaw
+from swagger_coverage_tool.src.tools.logger import get_logger
 
 logger = get_logger("SWAGGER_LOADER")
 

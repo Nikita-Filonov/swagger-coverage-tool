@@ -1,8 +1,8 @@
 import click
 
-from cli.commands.copy_report import copy_report_command
-from cli.commands.print_config import print_config_command
-from cli.commands.save_report import save_report_command
+from swagger_coverage_tool.cli.commands.copy_report import copy_report_command
+from swagger_coverage_tool.cli.commands.print_config import print_config_command
+from swagger_coverage_tool.cli.commands.save_report import save_report_command
 
 
 @click.command(name="save-report")

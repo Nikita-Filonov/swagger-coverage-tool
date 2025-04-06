@@ -3,9 +3,9 @@ from typing import Callable
 import httpx
 import requests
 
-from config import Settings
-from src.libs.models import EndpointCoverage
-from src.libs.storage import SwaggerCoverageTrackerStorage
+from swagger_coverage_tool.config import Settings
+from swagger_coverage_tool.src.libs.models import EndpointCoverage
+from swagger_coverage_tool.src.libs.storage import SwaggerCoverageTrackerStorage
 
 
 class SwaggerCoverageTracker:

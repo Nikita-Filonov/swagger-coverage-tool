@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: swagger-coverage-tool
+Version: 0.3.0
+Summary: A tool for measuring API test coverage based on Swagger
+Home-page: https://github.com/Nikita-Filonov/swagger-coverage-tool
+Author: Nikita Filonov
+Author-email: filonov.nikitkaa@gmail.com
+Project-URL: Bug Tracker, https://github.com/Nikita-Filonov/swagger-coverage-tool/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: click
+Requires-Dist: httpx
+Requires-Dist: pyyaml>=6.0.2
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: pydantic-settings>=2.8.0
+Requires-Dist: requests
+
+# Swagger coverage tool

@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from config import Settings
-from src.history.models import CoverageHistory, ServiceCoverageHistory
+from swagger_coverage_tool.config import Settings
+from swagger_coverage_tool.src.history.models import CoverageHistory, ServiceCoverageHistory
 
 
 class SwaggerServiceCoverageHistory:

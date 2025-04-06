@@ -2,8 +2,8 @@ from datetime import datetime
 
 from pydantic import BaseModel, Field, ConfigDict, FilePath, HttpUrl
 
-from config import ServiceConfig, Settings
-from src.coverage.models import ServiceCoverage
+from swagger_coverage_tool.config import ServiceConfig, Settings
+from swagger_coverage_tool.src.coverage.models import ServiceCoverage
 
 
 class CoverageReportServiceConfig(ServiceConfig):

@@ -1,13 +1,13 @@
-from config import get_settings
-from src.coverage.builder import SwaggerServiceCoverageBuilder
-from src.history.core import SwaggerServiceCoverageHistory
-from src.history.models import ServiceCoverageHistory
-from src.history.storage import SwaggerCoverageHistoryStorage
-from src.libs.storage import SwaggerCoverageTrackerStorage
-from src.reports.models import CoverageReportState
-from src.reports.storage import SwaggerReportsStorage
-from src.swagger.core import SwaggerLoader
-from src.tools.logger import get_logger
+from swagger_coverage_tool.config import get_settings
+from swagger_coverage_tool.src.coverage.builder import SwaggerServiceCoverageBuilder
+from swagger_coverage_tool.src.history.core import SwaggerServiceCoverageHistory
+from swagger_coverage_tool.src.history.models import ServiceCoverageHistory
+from swagger_coverage_tool.src.history.storage import SwaggerCoverageHistoryStorage
+from swagger_coverage_tool.src.libs.storage import SwaggerCoverageTrackerStorage
+from swagger_coverage_tool.src.reports.models import CoverageReportState
+from swagger_coverage_tool.src.reports.storage import SwaggerReportsStorage
+from swagger_coverage_tool.src.swagger.core import SwaggerLoader
+from swagger_coverage_tool.src.tools.logger import get_logger
 
 logger = get_logger("SAVE_REPORT")
 

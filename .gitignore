@@ -10,4 +10,4 @@ __pycache__
 *.html
 
 !examples/index.html
-!src/reports/templates/index.html
+!swagger_coverage_tool/src/reports/templates/index.html

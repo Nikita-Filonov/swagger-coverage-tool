@@ -1,3 +1,4 @@
+import os
 from functools import lru_cache
 from pathlib import Path
 from typing import Self
@@ -33,29 +34,31 @@ class ServiceConfig(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=os.path.join(os.getcwd(), ".env"),
         env_prefix="SWAGGER_COVERAGE_",
         env_file_encoding="utf-8",
         env_nested_delimiter=".",
 
-        yaml_file='swagger_coverage_config.yaml',
+        yaml_file=os.path.join(os.getcwd(), "swagger_coverage_config.yaml"),
         yaml_file_encoding="utf-8",
 
-        json_file='swagger_coverage_config.json',
+        json_file=os.path.join(os.getcwd(), "swagger_coverage_config.json"),
         json_file_encoding="utf-8"
     )
 
     services: list[ServiceConfig]
 
-    results_dir: Path = Path("coverage-results")
+    results_dir: Path = Path(os.path.join(os.getcwd(), "coverage-results"))
 
-    history_file: Path | None = Path("coverage-history.json")
+    history_file: Path | None = Path(os.path.join(os.getcwd(), "coverage-history.json"))
     history_retention_limit: int = 30
 
-    html_report_file: Path | None = Path("index.html")
-    json_report_file: Path | None = Path("coverage-report.json")
+    html_report_file: Path | None = Path(os.path.join(os.getcwd(), "index.html"))
+    json_report_file: Path | None = Path(os.path.join(os.getcwd(), "coverage-report.json"))
 
-    html_report_template_file: Path = Path("./src/reports/templates/index.html")
+    html_report_template_file: Path = Path(
+        os.path.join(os.getcwd(), "swagger_coverage_tool/src/reports/templates/index.html")
+    )
 
     @classmethod
     def settings_customise_sources(

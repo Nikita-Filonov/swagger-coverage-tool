@@ -1,7 +1,7 @@
-from src.coverage.models import ServiceCoverage, ServiceEndpointStatusCodeCoverage, ServiceEndpointCoverage
-from src.history.core import SwaggerServiceCoverageHistory
-from src.libs.models import EndpointCoverageList
-from src.swagger.models import SwaggerNormalized
+from swagger_coverage_tool.src.coverage.models import ServiceCoverage, ServiceEndpointStatusCodeCoverage, ServiceEndpointCoverage
+from swagger_coverage_tool.src.history.core import SwaggerServiceCoverageHistory
+from swagger_coverage_tool.src.libs.models import EndpointCoverageList
+from swagger_coverage_tool.src.swagger.models import SwaggerNormalized
 
 
 class SwaggerServiceCoverageBuilder:

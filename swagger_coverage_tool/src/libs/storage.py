@@ -1,8 +1,8 @@
 import uuid
 
-from config import Settings
-from src.libs.models import EndpointCoverageList, EndpointCoverage
-from src.tools.logger import get_logger
+from swagger_coverage_tool.config import Settings
+from swagger_coverage_tool.src.libs.models import EndpointCoverageList, EndpointCoverage
+from swagger_coverage_tool.src.tools.logger import get_logger
 
 logger = get_logger("SWAGGER_COVERAGE_TRACKER_STORAGE")
 

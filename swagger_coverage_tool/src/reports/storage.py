@@ -1,8 +1,8 @@
 import re
 
-from config import Settings
-from src.reports.models import CoverageReportState
-from src.tools.logger import get_logger
+from swagger_coverage_tool.config import Settings
+from swagger_coverage_tool.src.reports.models import CoverageReportState
+from swagger_coverage_tool.src.tools.logger import get_logger
 
 logger = get_logger("SWAGGER_REPORTS_STORAGE")
 

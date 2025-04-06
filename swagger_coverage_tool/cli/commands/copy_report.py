@@ -1,14 +1,14 @@
 import pathlib
 import shutil
 
-from src.tools.logger import get_logger
+from swagger_coverage_tool.src.tools.logger import get_logger
 
 logger = get_logger("COPY_REPORT")
 
 
 def copy_report_command():
     source_file = pathlib.Path("./submodules/swagger-coverage-report/build/index.html")
-    destination_file = pathlib.Path("./src/reports/templates/index.html")
+    destination_file = pathlib.Path("./swagger_coverage_tool/src/reports/templates/index.html")
 
     logger.info(f"Starting to copy report from {source_file} to {destination_file}")
 

@@ -1,5 +1,5 @@
-from config import get_settings
-from src.tools.logger import get_logger
+from swagger_coverage_tool.config import get_settings
+from swagger_coverage_tool.src.tools.logger import get_logger
 
 logger = get_logger("PRINT_CONFIG")
 

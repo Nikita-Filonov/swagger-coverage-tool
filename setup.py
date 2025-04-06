@@ -15,7 +15,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'swagger-coverage-tool = cli.main:cli',
+            'swagger-coverage-tool = swagger_coverage_tool.cli.main:cli',
         ],
     },
     author="Nikita Filonov",

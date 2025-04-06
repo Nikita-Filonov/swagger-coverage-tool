@@ -1,7 +1,7 @@
-from config import Settings
-from src.history.models import CoverageHistoryState, ServiceCoverageHistory
-from src.reports.models import CoverageReportState
-from src.tools.logger import get_logger
+from swagger_coverage_tool.config import Settings
+from swagger_coverage_tool.src.history.models import CoverageHistoryState, ServiceCoverageHistory
+from swagger_coverage_tool.src.reports.models import CoverageReportState
+from swagger_coverage_tool.src.tools.logger import get_logger
 
 logger = get_logger("SWAGGER_COVERAGE_HISTORY_STORAGE")
 

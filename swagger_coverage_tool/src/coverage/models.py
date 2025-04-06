@@ -1,8 +1,8 @@
 from pydantic import BaseModel, computed_field, Field, ConfigDict
 
-from src.history.models import CoverageHistory
-from src.tools.methods import HTTPMethod
-from src.tools.percent import get_coverage_percent
+from swagger_coverage_tool.src.history.models import CoverageHistory
+from swagger_coverage_tool.src.tools.methods import HTTPMethod
+from swagger_coverage_tool.src.tools.percent import get_coverage_percent
 
 
 class ServiceEndpointStatusCodeCoverage(BaseModel):
