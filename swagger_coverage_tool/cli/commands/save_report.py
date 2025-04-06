@@ -1,7 +1,5 @@
 from swagger_coverage_tool.config import get_settings
 from swagger_coverage_tool.src.coverage.builder import SwaggerServiceCoverageBuilder
-from swagger_coverage_tool.src.history.core import SwaggerServiceCoverageHistory
-from swagger_coverage_tool.src.history.models import ServiceCoverageHistory
 from swagger_coverage_tool.src.history.storage import SwaggerCoverageHistoryStorage
 from swagger_coverage_tool.src.libs.storage import SwaggerCoverageTrackerStorage
 from swagger_coverage_tool.src.reports.models import CoverageReportState
@@ -27,13 +25,11 @@ def save_report_command():
     for service in settings.services:
         swagger_loader = SwaggerLoader(service)
 
-        service_coverage_history = SwaggerServiceCoverageHistory(
-            history=history_state.services.get(service.key, ServiceCoverageHistory()),
-            settings=settings,
-        )
-        service_coverage_builder = SwaggerServiceCoverageBuilder(
+        service_coverage_builder = SwaggerServiceCoverageBuilder.from_service_factory(
+            service=service,
             swagger=swagger_loader.load(),
-            service_history=service_coverage_history,
+            settings=settings,
+            history_state=history_state,
             endpoint_coverage_list=tracker_state
         )
         report_state.services_coverage[service.key] = service_coverage_builder.build()
