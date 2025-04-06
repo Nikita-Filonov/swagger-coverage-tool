@@ -7,8 +7,11 @@ from swagger_coverage_tool.src.tools.types import StatusCode, EndpointName, Cove
 
 
 class ServiceEndpointStatusCodeCoverage(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     value: StatusCode
     covered: bool
+    total_cases: int = Field(alias="totalCases")
     description: str | None = None
 
 
