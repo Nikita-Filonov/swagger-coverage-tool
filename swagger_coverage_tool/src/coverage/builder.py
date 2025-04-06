@@ -9,7 +9,7 @@ from swagger_coverage_tool.src.coverage.models import (
 from swagger_coverage_tool.src.history.core import SwaggerServiceCoverageHistory
 from swagger_coverage_tool.src.history.models import CoverageHistoryState, ServiceCoverageHistory
 from swagger_coverage_tool.src.libs.models import EndpointCoverageList
-from swagger_coverage_tool.src.swagger.models import SwaggerNormalized
+from swagger_coverage_tool.src.swagger.models import SwaggerNormalized, SwaggerNormalizedStatusCode
 from swagger_coverage_tool.src.tools.types import ServiceKey
 
 
@@ -45,6 +45,21 @@ class SwaggerServiceCoverageBuilder:
             endpoint_coverage_list=endpoint_coverage_list,
         )
 
+    @classmethod
+    def build_status_code_coverage(
+            cls,
+            status_code: SwaggerNormalizedStatusCode,
+            coverage_list: EndpointCoverageList,
+    ) -> ServiceEndpointStatusCodeCoverage:
+        status_code_coverage = coverage_list.filter(status_code=status_code.value)
+
+        return ServiceEndpointStatusCodeCoverage(
+            value=status_code.value,
+            covered=status_code_coverage.is_covered,
+            total_cases=len(status_code_coverage.root),
+            description=status_code.description
+        )
+
     def build(self) -> ServiceCoverage:
         result: ServiceCoverage = ServiceCoverage(endpoints=[])
 
@@ -62,11 +77,7 @@ class SwaggerServiceCoverageBuilder:
                 covered=coverage_list.is_covered,
                 total_cases=len(coverage_list.root),
                 status_codes=[
-                    ServiceEndpointStatusCodeCoverage(
-                        value=status_code.value,
-                        covered=coverage_list.filter(status_code=status_code.value).is_covered,
-                        description=status_code.description
-                    )
+                    self.build_status_code_coverage(status_code=status_code, coverage_list=coverage_list)
                     for status_code in endpoint.status_codes
                 ],
                 total_coverage_history=[]
