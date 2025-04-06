@@ -1,0 +1,19 @@
+{
+  "services": [
+    {
+      "key": "service1",
+      "name": "My API Service",
+      "tags": [
+        "api",
+        "production"
+      ],
+      "repository": "https://github.com/my-api",
+      "swagger_url": "https://my-api.com/swagger.json"
+    }
+  ],
+  "results_dir": "./coverage-results",
+  "history_file": "./coverage-history.json",
+  "history_retention_limit": 30,
+  "html_report_file": "./index.html",
+  "json_report_file": "./coverage-report.json"
+}
