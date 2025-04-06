@@ -6,8 +6,6 @@ coverage-results
 
 __pycache__
 
-*.json
-*.html
-
-!examples/index.html
-!swagger_coverage_tool/src/reports/templates/index.html
+coverage-history.json
+coverage-report.json
+index.html
