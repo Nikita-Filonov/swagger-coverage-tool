@@ -1,0 +1,7 @@
+include *.py
+
+recursive-include src *
+recursive-include cli *
+
+include README.md
+include LICENSE
