@@ -13,8 +13,12 @@ class SwaggerCoverageHistoryStorage:
     def load(self):
         history_file = self.settings.history_file
 
+        if not history_file:
+            logger.debug("No history file path provided, returning empty history state")
+            return CoverageHistoryState()
+
         if not history_file.exists():
-            logger.debug(f"History file not found, returning empty history state")
+            logger.debug("History file not found, returning empty history state")
             return CoverageHistoryState()
 
         try:
