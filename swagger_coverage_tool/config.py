@@ -14,10 +14,12 @@ from pydantic_settings import (
     PydanticBaseSettingsSource,
 )
 
+from swagger_coverage_tool.src.tools.types import ServiceKey, ServiceName
+
 
 class ServiceConfig(BaseModel):
-    key: str
-    name: str
+    key: ServiceKey
+    name: ServiceName
     tags: list[str] | None = None
     repository: HttpUrl | None = None
     swagger_url: HttpUrl | None = None
