@@ -6,12 +6,23 @@ import requests
 from swagger_coverage_tool.config import Settings
 from swagger_coverage_tool.src.libs.models import EndpointCoverage
 from swagger_coverage_tool.src.libs.storage import SwaggerCoverageTrackerStorage
+from swagger_coverage_tool.src.tools.http import HTTPMethod
+from swagger_coverage_tool.src.tools.types import EndpointName, ServiceKey, StatusCode
 
 
 class SwaggerCoverageTracker:
-    def __init__(self, settings: Settings):
-        self.storage = SwaggerCoverageTrackerStorage(settings)
+    def __init__(self, service: str, settings: Settings):
+        self.service = service
         self.settings = settings
+
+        services = [service_config.key for service_config in settings.services]
+        if service not in services:
+            raise ValueError(
+                f"Service with key '{service}' not found in settings.\n"
+                f"Available services: {', '.join(services) or []}"
+            )
+
+        self.storage = SwaggerCoverageTrackerStorage(settings)
 
     def track_coverage_httpx(self, endpoint: str):
         def wrapper(func: Callable[..., httpx.Response]):
@@ -20,9 +31,10 @@ class SwaggerCoverageTracker:
 
                 self.storage.save(
                     EndpointCoverage(
-                        name=endpoint,
+                        name=EndpointName(endpoint),
                         method=response.request.method,
-                        status_code=response.status_code,
+                        service=ServiceKey(self.service),
+                        status_code=StatusCode(response.status_code),
                     )
                 )
 
@@ -39,9 +51,10 @@ class SwaggerCoverageTracker:
 
                 self.storage.save(
                     EndpointCoverage(
-                        name=endpoint,
-                        method=response.request.method,
-                        status_code=response.status_code,
+                        name=EndpointName(endpoint),
+                        method=response.request.method or HTTPMethod.GET,
+                        service=ServiceKey(self.service),
+                        status_code=StatusCode(response.status_code),
                     )
                 )
 
