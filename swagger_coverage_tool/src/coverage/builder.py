@@ -1,19 +1,49 @@
-from swagger_coverage_tool.src.coverage.models import ServiceCoverage, ServiceEndpointStatusCodeCoverage, ServiceEndpointCoverage
+from typing import Self
+
+from swagger_coverage_tool.config import ServiceConfig, Settings
+from swagger_coverage_tool.src.coverage.models import (
+    ServiceCoverage,
+    ServiceEndpointCoverage,
+    ServiceEndpointStatusCodeCoverage
+)
 from swagger_coverage_tool.src.history.core import SwaggerServiceCoverageHistory
+from swagger_coverage_tool.src.history.models import CoverageHistoryState, ServiceCoverageHistory
 from swagger_coverage_tool.src.libs.models import EndpointCoverageList
 from swagger_coverage_tool.src.swagger.models import SwaggerNormalized
+from swagger_coverage_tool.src.tools.types import ServiceKey
 
 
 class SwaggerServiceCoverageBuilder:
     def __init__(
             self,
+            service: ServiceKey,
             swagger: SwaggerNormalized,
             service_history: SwaggerServiceCoverageHistory,
             endpoint_coverage_list: EndpointCoverageList
     ):
+        self.service = service
         self.swagger = swagger
         self.service_history = service_history
         self.endpoint_coverage_list = endpoint_coverage_list
+
+    @classmethod
+    def from_service_factory(
+            cls,
+            service: ServiceConfig,
+            swagger: SwaggerNormalized,
+            settings: Settings,
+            history_state: CoverageHistoryState,
+            endpoint_coverage_list: EndpointCoverageList,
+    ) -> Self:
+        return SwaggerServiceCoverageBuilder(
+            service=service.key,
+            swagger=swagger,
+            service_history=SwaggerServiceCoverageHistory(
+                history=history_state.services.get(service.key, ServiceCoverageHistory()),
+                settings=settings,
+            ),
+            endpoint_coverage_list=endpoint_coverage_list,
+        )
 
     def build(self) -> ServiceCoverage:
         result: ServiceCoverage = ServiceCoverage(endpoints=[])
@@ -21,7 +51,8 @@ class SwaggerServiceCoverageBuilder:
         for endpoint in self.swagger.endpoints:
             coverage_list = self.endpoint_coverage_list.filter(
                 name=endpoint.name,
-                method=endpoint.method
+                method=endpoint.method,
+                service=self.service
             )
 
             service_endpoint_coverage = ServiceEndpointCoverage(
