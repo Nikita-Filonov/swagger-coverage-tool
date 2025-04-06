@@ -1,0 +1,13 @@
+coverage-results
+
+.env
+.idea
+.DS_Store
+
+__pycache__
+
+*.json
+*.html
+
+!examples/index.html
+!src/reports/templates/index.html

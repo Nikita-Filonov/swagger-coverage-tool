@@ -1,0 +1,3 @@
+[submodule "submodules/swagger-coverage-report"]
+	path = submodules/swagger-coverage-report
+	url = https://github.com/Nikita-Filonov/swagger-coverage-report.git
