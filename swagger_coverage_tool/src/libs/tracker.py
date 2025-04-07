@@ -1,4 +1,5 @@
 import functools
+import inspect
 from typing import Callable
 
 import httpx
@@ -27,6 +28,8 @@ class SwaggerCoverageTracker:
 
     def track_coverage_httpx(self, endpoint: str):
         def wrapper(func: Callable[..., httpx.Response]):
+            signature = inspect.signature(func)
+
             @functools.wraps(func)
             def inner(*args, **kwargs):
                 response = func(*args, **kwargs)
@@ -42,12 +45,15 @@ class SwaggerCoverageTracker:
 
                 return response
 
+            inner.__signature__ = signature
             return inner
 
         return wrapper
 
     def track_coverage_requests(self, endpoint: str):
         def wrapper(func: Callable[..., requests.Response]):
+            signature = inspect.signature(func)
+
             @functools.wraps(func)
             def inner(*args, **kwargs):
                 response = func(*args, **kwargs)
@@ -63,6 +69,7 @@ class SwaggerCoverageTracker:
 
                 return response
 
+            inner.__signature__ = signature
             return inner
 
         return wrapper
