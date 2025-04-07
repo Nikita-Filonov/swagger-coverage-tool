@@ -5,21 +5,21 @@ tracking and reporting of test coverage for APIs, helping ensure that your endpo
 
 ## Features
 
-- *Automatic Coverage Measurement:* The tool automatically measures coverage, generating a report based on the collected
-  data.
-- *Multiple Swagger Documentations:* It supports working with multiple Swagger documentation files. For example, if you
-  have multiple microservices with their own Swagger documentation, the coverage can be measured separately for each
+- **Automatic Coverage Measurement:** The tool automatically measures coverage, generating a report based on the
+  collected data.
+- **Multiple Swagger Documentations:** It supports working with multiple Swagger documentation files. For example, if
+  you have multiple microservices with their own Swagger documentation, the coverage can be measured separately for each
   service.
-- *Overall Service Coverage:* It calculates the total coverage of each service.
-- *Endpoint Coverage:* Measures whether each endpoint is covered by tests and to what percentage. It also counts the
+- **Overall Service Coverage:** It calculates the total coverage of each service.
+- **Endpoint Coverage:** Measures whether each endpoint is covered by tests and to what percentage. It also counts the
   number of test cases that cover a given endpoint.
-- *Status Code Coverage:* Tracks which status codes were covered, including the number of test cases that cover each
+- **Status Code Coverage:** Tracks which status codes were covered, including the number of test cases that cover each
   status code.
-- *History of Coverage:* Maintains a history of coverage for each service and endpoint.
-- *Flexible Searching and Sorting:* Supports flexible data search and sorting, making it easy to analyze coverage
+- **History of Coverage:** Maintains a history of coverage for each service and endpoint.
+- **Flexible Searching and Sorting:** Supports flexible data search and sorting, making it easy to analyze coverage
   results.
-- *HTML Report Generation:* All coverage data is aggregated into a single index.html report file, which can be opened,
-  shared, or published.
+- **HTML Report Generation:** All coverage data is aggregated into a single index.html report file, which can be
+  opened, shared, or published.
 - Support for [httpx](https://www.python-httpx.org/) and [requests](https://requests.readthedocs.io/en/latest/)
   Libraries: The tool works with both httpx and requests libraries for making HTTP requests.
 
@@ -145,7 +145,7 @@ All paths are relative to the current working directory, and configuration is au
 All settings can be declared using environment variables. Nested fields use dot notation, and all variables must be
 prefixed with `SWAGGER_COVERAGE_`.
 
-*Example:* [.env](docs/configs/.env.example)
+**Example:** [.env](docs/configs/.env.example)
 
 ```dotenv
 SWAGGER_COVERAGE_SERVICES='[
@@ -172,11 +172,11 @@ SWAGGER_COVERAGE_HTML_REPORT_FILE="./index.html"
 SWAGGER_COVERAGE_JSON_REPORT_FILE="./coverage-report.json"
 ```
 
-*Note:* Either `swagger_url` or `swagger_file` is required for each service.
+**Note:** Either `swagger_url` or `swagger_file` is required for each service.
 
 ### Configuration via YAML
 
-*Example:* [swagger_coverage_config.yaml](docs/configs/swagger_coverage_config.yaml)
+**Example:** [swagger_coverage_config.yaml](docs/configs/swagger_coverage_config.yaml)
 
 ```yaml
 services:
@@ -196,7 +196,7 @@ json_report_file: "./coverage-report.json"
 
 ### Configuration via JSON
 
-*Example:* [swagger_coverage_config.json](docs/configs/swagger_coverage_config.json)
+**Example:** [swagger_coverage_config.json](docs/configs/swagger_coverage_config.json)
 
 ```json
 {
@@ -257,7 +257,7 @@ The Swagger Coverage Tool provides several CLI commands to help with managing an
 Generates a detailed coverage report based on the collected result files. This command will process all the raw coverage
 data stored in the `coverage-results` directory and generate an HTML report.
 
-*Usage:*
+**Usage:**
 
 ```shell
 swagger-coverage-tool save-report
@@ -273,7 +273,7 @@ This is an internal command mainly used during local development. It updates the
 coverage reports. It is typically used to ensure that the latest report template is available when you generate new
 reports.
 
-*Usage:*
+**Usage:**
 
 ```shell
 swagger-coverage-tool copy-report
@@ -288,7 +288,7 @@ swagger-coverage-tool copy-report
 Prints the resolved configuration to the console. This can be useful for debugging or verifying that the configuration
 file has been loaded and parsed correctly.
 
-*Usage:*
+**Usage:**
 
 ```shell
 swagger-coverage-tool print-config
