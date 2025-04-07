@@ -63,13 +63,10 @@ Here's an example of how to use the tool with [httpx](https://www.python-httpx.o
 ```python
 import httpx
 
-from swagger_coverage_tool import get_settings, SwaggerCoverageTracker
+from swagger_coverage_tool import SwaggerCoverageTracker
 
-# Initialize the tracker with service and settings
-tracker = SwaggerCoverageTracker(
-    service="api-service",  # Name of the service
-    settings=get_settings()  # Load settings
-)
+# Initialize the tracker with service
+tracker = SwaggerCoverageTracker(service="api-service")
 
 
 # Track coverage for the "get_user" endpoint
@@ -87,8 +84,6 @@ def create_user():
 # Make requests
 get_user("123")
 create_user()
-
-
 ```
 
 After executing the HTTP requests, coverage data will be automatically collected and saved to the `coverage-results`
@@ -101,12 +96,9 @@ Here's the same example using the [requests](https://requests.readthedocs.io/en/
 ```python
 import requests
 
-from swagger_coverage_tool import get_settings, SwaggerCoverageTracker
+from swagger_coverage_tool import SwaggerCoverageTracker
 
-tracker = SwaggerCoverageTracker(
-    service="api-service",
-    settings=get_settings()
-)
+tracker = SwaggerCoverageTracker(service="api-service")
 
 
 @tracker.track_coverage_httpx("/api/v1/users/{user_id}")
@@ -121,7 +113,6 @@ def create_user() -> requests.Response:
 
 get_user()
 create_user()
-
 ```
 
 ### Coverage Report Generation
@@ -145,7 +136,8 @@ tool looks for configuration in:
 - `swagger_coverage_config.json`
 - `.env` (for environment variable configuration)
 
-All paths are relative to the current working directory, and configuration is automatically loaded via `get_settings()`.
+All paths are relative to the current working directory, and configuration is automatically loaded
+via [get_settings()](./swagger_coverage_tool/config.py).
 
 ### Configuration via `.env`
 
