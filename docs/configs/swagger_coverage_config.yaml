@@ -1,13 +1,11 @@
 # List of service configurations.
 services:
-  - key: "service1"  # Unique identifier for the service.
+  - key: "my-api-service"  # Unique identifier for the service.
     name: "My API Service"  # Name of the service.
-    tags: # Optional list of tags to describe the service.
-      - "api"
-      - "production"
+    tags: [ "API", "PRODUCTION" ]  # Optional list of tags to describe the service.
     repository: "https://github.com/my-api"  # Optional URL to the repository of the service.
     swagger_url: "https://my-api.com/swagger.json"  # Optional URL to the Swagger documentation.
-    # swagger_file: "swagger_file_path.yaml"  # Alternatively, you can provide a file path instead of a URL.
+    # swagger_file: "swagger_file_path.json"  # Alternatively, you can provide a file path instead of a URL.
 
 # Directory where coverage results will be stored.
 results_dir: "./coverage-results"  # This path is relative to the current working directory.

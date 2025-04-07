@@ -1,11 +1,11 @@
 {
   "services": [
     {
-      "key": "service1",
+      "key": "my-api-service",
       "name": "My API Service",
       "tags": [
-        "api",
-        "production"
+        "API",
+        "PRODUCTION"
       ],
       "repository": "https://github.com/my-api",
       "swagger_url": "https://my-api.com/swagger.json"
