@@ -5,7 +5,7 @@ from typing import Callable
 import httpx
 import requests
 
-from swagger_coverage_tool.config import Settings
+from swagger_coverage_tool.config import Settings, get_settings
 from swagger_coverage_tool.src.libs.models import EndpointCoverage
 from swagger_coverage_tool.src.libs.storage import SwaggerCoverageTrackerStorage
 from swagger_coverage_tool.src.tools.http import HTTPMethod
@@ -13,9 +13,9 @@ from swagger_coverage_tool.src.tools.types import EndpointName, ServiceKey, Stat
 
 
 class SwaggerCoverageTracker:
-    def __init__(self, service: str, settings: Settings):
+    def __init__(self, service: str, settings: Settings | None = None):
         self.service = service
-        self.settings = settings
+        self.settings = settings or get_settings()
 
         services = [service_config.key for service_config in settings.services]
         if service not in services:
