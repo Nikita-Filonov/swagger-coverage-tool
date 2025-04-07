@@ -17,14 +17,14 @@ class SwaggerCoverageTracker:
         self.service = service
         self.settings = settings or get_settings()
 
-        services = [service_config.key for service_config in settings.services]
+        services = [service_config.key for service_config in self.settings.services]
         if service not in services:
             raise ValueError(
                 f"Service with key '{service}' not found in settings.\n"
                 f"Available services: {', '.join(services) or []}"
             )
 
-        self.storage = SwaggerCoverageTrackerStorage(settings)
+        self.storage = SwaggerCoverageTrackerStorage(self.settings)
 
     def track_coverage_httpx(self, endpoint: str):
         def wrapper(func: Callable[..., httpx.Response]):
