@@ -5,17 +5,23 @@ from swagger_coverage_tool.cli.commands.print_config import print_config_command
 from swagger_coverage_tool.cli.commands.save_report import save_report_command
 
 
-@click.command(name="save-report")
+@click.command(
+    name="save-report",
+    help="Generate a coverage report based on collected result files."
+)
 def save_report():
     save_report_command()
 
 
-@click.command(name="copy-report")
+@click.command(name="copy-report", help="Internal command to update report template.")
 def copy_report():
     copy_report_command()
 
 
-@click.command(name="print-config")
+@click.command(
+    name="print-config",
+    help="Print the resolved configuration to the console."
+)
 def show_config():
     print_config_command()
 
