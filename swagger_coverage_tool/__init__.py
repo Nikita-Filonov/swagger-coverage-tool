@@ -1,3 +1,3 @@
-from swagger_coverage_tool.src.libs.tracker import SwaggerCoverageTracker
+from swagger_coverage_tool.src.tracker.core import SwaggerCoverageTracker
 
 __all__ = ["SwaggerCoverageTracker"]
