@@ -4,13 +4,18 @@ from swagger_coverage_tool.config import ServiceConfig, Settings
 from swagger_coverage_tool.src.coverage.models import (
     ServiceCoverage,
     ServiceEndpointCoverage,
-    ServiceEndpointStatusCodeCoverage
+    ServiceEndpointStatusCodeCoverage,
+    ServiceEndpointQueryParametersCoverage
 )
 from swagger_coverage_tool.src.history.core import SwaggerServiceCoverageHistory
 from swagger_coverage_tool.src.history.models import CoverageHistoryState, ServiceCoverageHistory
-from swagger_coverage_tool.src.libs.models import EndpointCoverageList
-from swagger_coverage_tool.src.swagger.models import SwaggerNormalized, SwaggerNormalizedStatusCode
+from swagger_coverage_tool.src.swagger.models import (
+    SwaggerNormalized,
+    SwaggerNormalizedEndpoint,
+    SwaggerNormalizedStatusCode
+)
 from swagger_coverage_tool.src.tools.types import ServiceKey
+from swagger_coverage_tool.src.tracker.models import EndpointCoverageList
 
 
 class SwaggerServiceCoverageBuilder:
@@ -48,6 +53,7 @@ class SwaggerServiceCoverageBuilder:
     @classmethod
     def build_status_code_coverage(
             cls,
+            endpoint: SwaggerNormalizedEndpoint,
             status_code: SwaggerNormalizedStatusCode,
             coverage_list: EndpointCoverageList,
     ) -> ServiceEndpointStatusCodeCoverage:
@@ -55,10 +61,42 @@ class SwaggerServiceCoverageBuilder:
 
         return ServiceEndpointStatusCodeCoverage(
             value=status_code.value,
-            covered=status_code_coverage.is_covered,
-            total_cases=len(status_code_coverage.root),
-            description=status_code.description
+            is_covered=status_code_coverage.is_covered,
+            total_cases=status_code_coverage.total_cases,
+            description=status_code.description,
+            is_response_covered=status_code_coverage.is_response_covered if endpoint.has_request else True
         )
+
+    @classmethod
+    def build_status_codes(
+            cls,
+            endpoint: SwaggerNormalizedEndpoint,
+            coverage_list: EndpointCoverageList
+    ) -> list[ServiceEndpointStatusCodeCoverage]:
+        return [
+            cls.build_status_code_coverage(
+                endpoint=endpoint,
+                status_code=status_code,
+                coverage_list=coverage_list
+            )
+            for status_code in endpoint.status_codes
+        ]
+
+    @classmethod
+    def build_query_parameters(
+            cls,
+            endpoint: SwaggerNormalizedEndpoint,
+            coverage_list: EndpointCoverageList
+    ) -> list[ServiceEndpointQueryParametersCoverage]:
+        unique_query_parameters = coverage_list.unique_query_parameters
+
+        return [
+            ServiceEndpointQueryParametersCoverage(
+                name=query_parameter,
+                is_covered=query_parameter in unique_query_parameters
+            )
+            for query_parameter in endpoint.query_parameters
+        ]
 
     def build(self) -> ServiceCoverage:
         result: ServiceCoverage = ServiceCoverage(endpoints=[])
@@ -74,13 +112,11 @@ class SwaggerServiceCoverageBuilder:
                 name=endpoint.name,
                 method=endpoint.method,
                 summary=endpoint.summary,
-                covered=coverage_list.is_covered,
-                total_cases=len(coverage_list.root),
-                status_codes=[
-                    self.build_status_code_coverage(status_code=status_code, coverage_list=coverage_list)
-                    for status_code in endpoint.status_codes
-                ],
-                total_coverage_history=[]
+                is_covered=coverage_list.is_covered,
+                total_cases=coverage_list.total_cases,
+                status_codes=self.build_status_codes(endpoint, coverage_list),
+                query_parameters=self.build_query_parameters(endpoint, coverage_list),
+                is_request_covered=coverage_list.is_request_covered if endpoint.has_request else True,
             )
             service_endpoint_coverage.total_coverage_history = self.service_history.get_endpoint_total_coverage_history(
                 name=endpoint.name,
