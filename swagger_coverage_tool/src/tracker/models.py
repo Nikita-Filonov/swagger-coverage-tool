@@ -3,7 +3,7 @@ from typing import Self
 
 from pydantic import BaseModel, RootModel
 
-from swagger_coverage_tool.src.tools.types import ServiceKey, StatusCode, EndpointName
+from swagger_coverage_tool.src.tools.types import ServiceKey, StatusCode, EndpointName, QueryParameter
 
 
 class EndpointCoverage(BaseModel):
@@ -11,6 +11,9 @@ class EndpointCoverage(BaseModel):
     method: HTTPMethod
     service: ServiceKey
     status_code: StatusCode
+    query_parameters: list[QueryParameter]
+    is_request_covered: bool
+    is_response_covered: bool
 
 
 class EndpointCoverageList(RootModel):
@@ -34,5 +37,26 @@ class EndpointCoverageList(RootModel):
         return EndpointCoverageList(root=results)
 
     @property
+    def total_cases(self) -> int:
+        return len(self.root)
+
+    @property
+    def unique_query_parameters(self) -> list[QueryParameter]:
+        query_parameters = set(
+            query_parameter
+            for endpoint in self.root
+            for query_parameter in endpoint.query_parameters
+        )
+        return list(query_parameters)
+
+    @property
     def is_covered(self) -> bool:
         return len(self.root) > 0
+
+    @property
+    def is_request_covered(self) -> bool:
+        return any(endpoint.is_request_covered for endpoint in self.root)
+
+    @property
+    def is_response_covered(self) -> bool:
+        return any(endpoint.is_response_covered for endpoint in self.root)
