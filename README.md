@@ -15,6 +15,10 @@ tracking and reporting of test coverage for APIs, helping ensure that your endpo
   number of test cases that cover a given endpoint.
 - **Status Code Coverage:** Tracks which status codes were covered, including the number of test cases that cover each
   status code.
+- **Request and response coverage:** The tool checks whether a request or response exists for a given endpoint, and if
+  so, verifies whether it was covered.
+- **Query parameter coverage:** The tool checks whether the query parameters defined in the Swagger documentation were
+  covered for each endpoint.
 - **History of Coverage:** Maintains a history of coverage for each service and endpoint.
 - **Flexible Searching and Sorting:** Supports flexible data search and sorting, making it easy to analyze coverage
   results.
