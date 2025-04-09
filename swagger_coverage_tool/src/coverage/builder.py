@@ -7,6 +7,7 @@ from swagger_coverage_tool.src.coverage.models import (
     ServiceEndpointStatusCodeCoverage,
     ServiceEndpointQueryParametersCoverage
 )
+from swagger_coverage_tool.src.coverage.status import ServiceEndpointCoverageStatus
 from swagger_coverage_tool.src.history.core import SwaggerServiceCoverageHistory
 from swagger_coverage_tool.src.history.models import CoverageHistoryState, ServiceCoverageHistory
 from swagger_coverage_tool.src.swagger.models import (
@@ -53,7 +54,6 @@ class SwaggerServiceCoverageBuilder:
     @classmethod
     def build_status_code_coverage(
             cls,
-            endpoint: SwaggerNormalizedEndpoint,
             status_code: SwaggerNormalizedStatusCode,
             coverage_list: EndpointCoverageList,
     ) -> ServiceEndpointStatusCodeCoverage:
@@ -61,10 +61,12 @@ class SwaggerServiceCoverageBuilder:
 
         return ServiceEndpointStatusCodeCoverage(
             value=status_code.value,
-            is_covered=status_code_coverage.is_covered,
             total_cases=status_code_coverage.total_cases,
             description=status_code.description,
-            is_response_covered=status_code_coverage.is_response_covered if endpoint.has_request else True
+            response_coverage=ServiceEndpointCoverageStatus.from_has_item(
+                status_code_coverage.is_response_covered, status_code.has_response
+            ),
+            status_code_coverage=ServiceEndpointCoverageStatus.from_bool(status_code_coverage.is_covered)
         )
 
     @classmethod
@@ -75,7 +77,6 @@ class SwaggerServiceCoverageBuilder:
     ) -> list[ServiceEndpointStatusCodeCoverage]:
         return [
             cls.build_status_code_coverage(
-                endpoint=endpoint,
                 status_code=status_code,
                 coverage_list=coverage_list
             )
@@ -93,7 +94,7 @@ class SwaggerServiceCoverageBuilder:
         return [
             ServiceEndpointQueryParametersCoverage(
                 name=query_parameter,
-                is_covered=query_parameter in unique_query_parameters
+                coverage=ServiceEndpointCoverageStatus.from_bool(query_parameter in unique_query_parameters)
             )
             for query_parameter in endpoint.query_parameters
         ]
@@ -112,11 +113,13 @@ class SwaggerServiceCoverageBuilder:
                 name=endpoint.name,
                 method=endpoint.method,
                 summary=endpoint.summary,
-                is_covered=coverage_list.is_covered,
+                coverage=ServiceEndpointCoverageStatus.from_bool(coverage_list.is_covered),
                 total_cases=coverage_list.total_cases,
                 status_codes=self.build_status_codes(endpoint, coverage_list),
                 query_parameters=self.build_query_parameters(endpoint, coverage_list),
-                is_request_covered=coverage_list.is_request_covered if endpoint.has_request else True,
+                request_coverage=ServiceEndpointCoverageStatus.from_has_item(
+                    coverage_list.is_request_covered, endpoint.has_request
+                )
             )
             service_endpoint_coverage.total_coverage_history = self.service_history.get_endpoint_total_coverage_history(
                 name=endpoint.name,
