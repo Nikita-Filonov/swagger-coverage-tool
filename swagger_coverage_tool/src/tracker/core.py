@@ -42,7 +42,7 @@ class SwaggerCoverageTracker:
                 service=ServiceKey(self.service),
                 status_code=StatusCode(response.status_code),
                 query_parameters=response.request.url.params.keys(),
-                is_request_covered=bool(getattr(response.request, 'content', b'')),
+                is_request_covered=bool(response.request.read()),
                 is_response_covered=bool(response.content),
             )
         except Exception as error:
