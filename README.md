@@ -55,7 +55,7 @@ If you have any questions or need assistance, feel free to ask [@Nikita Filonov]
 ## Installation
 
 ```shell
-pip install swagger_coverage_tool
+pip install swagger-coverage-tool
 ```
 
 ## Usage
