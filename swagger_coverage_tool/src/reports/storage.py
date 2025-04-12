@@ -21,7 +21,7 @@ class SwaggerReportsStorage:
         )
         script_tag = f'<script id="state" type="application/json">{state_json}</script>'
 
-        return script_regex.sub(script_tag, html_report_template_file.read_text())
+        return script_regex.sub(script_tag, html_report_template_file.read_text(encoding='utf-8'))
 
     def save_json_report(self, state: CoverageReportState):
         json_report_file = self.settings.json_report_file
@@ -46,7 +46,7 @@ class SwaggerReportsStorage:
 
         try:
             html_report_file.touch(exist_ok=True)
-            html_report_file.write_text(self.inject_state_into_html(state))
+            html_report_file.write_text(self.inject_state_into_html(state), encoding='utf-8')
             logger.info(f'HTML report saved to {html_report_file}')
         except Exception as error:
             logger.error(f'Failed to write HTML report: {error}')
