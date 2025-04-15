@@ -42,14 +42,17 @@ class SwaggerRawEndpoint(BaseModel):
     parameters: list[SwaggerRawParameter] | None = None
 
     def get_status_codes(self) -> list[SwaggerNormalizedStatusCode]:
-        return [
-            SwaggerNormalizedStatusCode(
-                value=StatusCode(int(status_code)),
-                description=response.description,
-                has_response=bool(response.content)
-            )
-            for status_code, response in self.responses.items()
-        ]
+        try:
+            return [
+                SwaggerNormalizedStatusCode(
+                    value=StatusCode(int(status_code)),
+                    description=response.description,
+                    has_response=bool(response.content)
+                )
+                for status_code, response in self.responses.items()
+            ]
+        except ValueError:
+            return []
 
     def get_query_parameters(self) -> list[QueryParameter]:
         raw_parameters = filter(lambda p: p.inside == "query", self.parameters or [])
