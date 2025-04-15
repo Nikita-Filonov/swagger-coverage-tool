@@ -1,11 +1,13 @@
 from datetime import datetime
 
 from swagger_coverage_tool.config import Settings
+from swagger_coverage_tool.src.history.endpoint import build_endpoint_key
 from swagger_coverage_tool.src.history.models import CoverageHistory, ServiceCoverageHistory
-from swagger_coverage_tool.src.tools.types import CoveragePercent
+from swagger_coverage_tool.src.tools.http import HTTPMethod
+from swagger_coverage_tool.src.tools.types import CoveragePercent, EndpointName
 
 
-class SwaggerServiceCoverageHistory:
+class SwaggerServiceCoverageHistoryBuilder:
     def __init__(self, history: ServiceCoverageHistory, settings: Settings):
         self.history = history
         self.settings = settings
@@ -32,9 +34,9 @@ class SwaggerServiceCoverageHistory:
 
     def get_endpoint_total_coverage_history(
             self,
-            name: str,
-            method: str,
+            name: EndpointName,
+            method: HTTPMethod,
             total_coverage: CoveragePercent
     ) -> list[CoverageHistory]:
-        history = self.history.endpoints_total_coverage_history.get(f'{method}_{name}', [])
+        history = self.history.endpoints_total_coverage_history.get(build_endpoint_key(name, method), [])
         return self.append_history(history, total_coverage)

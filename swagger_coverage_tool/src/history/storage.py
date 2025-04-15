@@ -1,4 +1,5 @@
 from swagger_coverage_tool.config import Settings
+from swagger_coverage_tool.src.history.endpoint import build_endpoint_key
 from swagger_coverage_tool.src.history.models import CoverageHistoryState, ServiceCoverageHistory
 from swagger_coverage_tool.src.reports.models import CoverageReportState
 from swagger_coverage_tool.src.tools.logger import get_logger
@@ -44,7 +45,7 @@ class SwaggerCoverageHistoryStorage:
                 service.key: ServiceCoverageHistory(
                     total_coverage_history=report.services_coverage[service.key].total_coverage_history,
                     endpoints_total_coverage_history={
-                        f'{endpoint.method}_{endpoint.name}': endpoint.total_coverage_history
+                        build_endpoint_key(endpoint.name, endpoint.method): endpoint.total_coverage_history
                         for endpoint in report.services_coverage[service.key].endpoints
                     }
                 )
