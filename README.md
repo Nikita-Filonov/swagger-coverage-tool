@@ -151,6 +151,7 @@ prefixed with `SWAGGER_COVERAGE_`.
 **Example:** [.env](docs/configs/.env.example)
 
 ```dotenv
+# Define the services that should be tracked. In the case of multiple services, they can be added in a comma-separated list.
 SWAGGER_COVERAGE_SERVICES='[
     {
         "key": "my-api-service",
