@@ -153,7 +153,7 @@ prefixed with `SWAGGER_COVERAGE_`.
 ```dotenv
 SWAGGER_COVERAGE_SERVICES='[
     {
-        key": "my-api-service",
+        "key": "my-api-service",
         "name": "My API Service",
         "tags": ["API", "PRODUCTION"],
         "repository": "https://github.com/my-api",
