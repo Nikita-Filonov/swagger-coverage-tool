@@ -1,10 +1,10 @@
 # Swagger Coverage Tool
 
-[![CI](https://github.com/Nikita-Filonov/ai-review/actions/workflows/workflow-test.yml/badge.svg)](https://github.com/Nikita-Filonov/swagger-coverage-tool/actions/workflows/workflow-test.yml)
-[![codecov](https://codecov.io/gh/Nikita-Filonov/ai-review/branch/main/graph/badge.svg)](https://codecov.io/gh/Nikita-Filonov/swagger-coverage-tool)
-[![PyPI version](https://img.shields.io/pypi/v/xai-review.svg)](https://pypi.org/project/swagger-coverage-tool/)
-[![License](https://img.shields.io/github/license/Nikita-Filonov/ai-review)](./LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/Nikita-Filonov/ai-review?style=social)](https://github.com/Nikita-Filonov/swagger-coverage-tool/stargazers)
+[![CI](https://github.com/Nikita-Filonov/swagger-coverage-tool/actions/workflows/workflow-test.yml/badge.svg)](https://github.com/Nikita-Filonov/swagger-coverage-tool/actions/workflows/workflow-test.yml)
+[![codecov](https://codecov.io/gh/Nikita-Filonov/swagger-coverage-tool/branch/main/graph/badge.svg)](https://codecov.io/gh/Nikita-Filonov/swagger-coverage-tool)
+[![PyPI version](https://img.shields.io/pypi/v/swagger-coverage-tool.svg)](https://pypi.org/project/swagger-coverage-tool/)
+[![License](https://img.shields.io/github/license/Nikita-Filonov/swagger-coverage-tool)](./LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Nikita-Filonov/swagger-coverage-tool?style=social)](https://github.com/Nikita-Filonov/swagger-coverage-tool/stargazers)
 
 The Swagger Coverage Tool is designed to measure API test coverage based on Swagger documentation. It provides automated
 tracking and reporting of test coverage for APIs, helping ensure that your endpoints and services are well-tested.
