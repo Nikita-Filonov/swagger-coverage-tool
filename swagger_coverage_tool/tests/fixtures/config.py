@@ -21,11 +21,15 @@ def settings() -> Settings:
 
 
 @pytest.fixture
-def coverage_history_settings(tmp_path: Path) -> Settings:
-    config = Settings(
-        services=[],
-        results_dir=tmp_path / "results",
-    )
-    config.history_file = tmp_path / "history.json"
-    config.history_retention_limit = 3
-    return config
+def coverage_history_settings(tmp_path: Path, settings: Settings) -> Settings:
+    settings.results_dir = tmp_path / "results"
+    settings.history_file = tmp_path / "history.json"
+    settings.history_retention_limit = 3
+    return settings
+
+
+@pytest.fixture
+def reports_settings(tmp_path: Path, coverage_history_settings: Settings) -> Settings:
+    coverage_history_settings.json_report_file = tmp_path / "report.json"
+    coverage_history_settings.html_report_file = tmp_path / "report.html"
+    return coverage_history_settings
