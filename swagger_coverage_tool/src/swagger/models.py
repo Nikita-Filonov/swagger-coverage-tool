@@ -1,6 +1,6 @@
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 from swagger_coverage_tool.src.tools.http import HTTPMethod
 from swagger_coverage_tool.src.tools.types import StatusCode, EndpointName, QueryParameter
@@ -31,11 +31,15 @@ class SwaggerRawResponse(BaseModel):
 
 
 class SwaggerRawParameter(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     name: str
     inside: str = Field(alias="in")
 
 
 class SwaggerRawEndpoint(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     summary: str | None = None
     request: dict[str, Any] | None = Field(alias="requestBody", default=None)
     responses: dict[str, SwaggerRawResponse]
@@ -60,6 +64,8 @@ class SwaggerRawEndpoint(BaseModel):
 
 
 class SwaggerRaw(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     endpoints: dict[str, dict[str, SwaggerRawEndpoint]] = Field(alias="paths")
 
     def normalize(self):

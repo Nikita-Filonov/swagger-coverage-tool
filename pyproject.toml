@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swagger-coverage-tool"
+version = "0.27.0"
+description = "A tool for measuring API test coverage based on Swagger"
+readme = { file = "README.md", content-type = "text/markdown" }
+license = { text = "MIT" }
+authors = [
+    { name = "Nikita Filonov", email = "filonov.nikitkaa@gmail.com" }
+]
+maintainers = [
+    { name = "Nikita Filonov", email = "filonov.nikitkaa@gmail.com" }
+]
+keywords = ["swagger", "coverage", "testing", "api", "openapi"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Quality Assurance"
+]
+requires-python = ">=3.11"
+
+dependencies = [
+    "click==8.1.8",
+    "httpx==0.28.1",
+    "pyyaml==6.0.2",
+    "pydantic==2.11.2",
+    "pydantic-settings==2.8.1",
+    "requests==2.32.3"
+]
+
+[project.urls]
+Homepage = "https://github.com/Nikita-Filonov/swagger-coverage-tool"
+Repository = "https://github.com/Nikita-Filonov/swagger-coverage-tool"
+Issues = "https://github.com/Nikita-Filonov/swagger-coverage-tool/issues"
+
+[project.scripts]
+swagger-coverage-tool = "swagger_coverage_tool.cli.main:cli"
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-cov"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["swagger_coverage_tool*"]
+
+[tool.setuptools.package-data]
+"swagger_coverage_tool" = ["config.py"]
+"swagger_coverage_tool.cli" = ["*"]
+"swagger_coverage_tool.src" = ["*"]
