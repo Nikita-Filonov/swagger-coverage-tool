@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "swagger-coverage-tool"
-version = "0.28.0"
+version = "0.29.0"
 description = "A tool for measuring API test coverage based on Swagger"
 readme = { file = "README.md", content-type = "text/markdown" }
 license = { text = "MIT" }
