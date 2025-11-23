@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "swagger-coverage-tool"
-version = "0.30.0"
+version = "0.31.0"
 description = "A tool for measuring API test coverage based on Swagger"
 readme = { file = "README.md", content-type = "text/markdown" }
-license = { text = "MIT" }
+license = { file = "LICENSE" }
 authors = [
     { name = "Nikita Filonov", email = "filonov.nikitkaa@gmail.com" }
 ]
@@ -28,12 +28,12 @@ classifiers = [
 requires-python = ">=3.11"
 
 dependencies = [
-    "click==8.1.8",
-    "httpx==0.28.1",
-    "pyyaml==6.0.2",
-    "pydantic==2.11.2",
-    "pydantic-settings==2.8.1",
-    "requests==2.32.3"
+    "click",
+    "httpx",
+    "pyyaml",
+    "pydantic",
+    "pydantic-settings",
+    "requests"
 ]
 
 [project.urls]
