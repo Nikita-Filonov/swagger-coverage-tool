@@ -146,8 +146,22 @@ tool looks for configuration in:
 - `swagger_coverage_config.json`
 - `.env` (for environment variable configuration)
 
-All paths are relative to the current working directory, and configuration is automatically loaded
+By default, these files are loaded from the current working directory. Configuration is automatically loaded
 via [get_settings()](./swagger_coverage_tool/config.py).
+
+### Override config file paths
+
+You can override default config locations using environment variables:
+
+- `SWAGGER_COVERAGE_CONFIG_FILE_YAML` — path to YAML config
+- `SWAGGER_COVERAGE_CONFIG_FILE_JSON` — path to JSON config
+- `SWAGGER_COVERAGE_CONFIG_FILE_ENV` — path to `.env` config
+
+**Example:**
+
+```shell
+SWAGGER_COVERAGE_CONFIG_FILE_YAML=./ci/swagger_coverage_config.yaml swagger-coverage-tool save-report
+```
 
 ### Configuration via `.env`
 
@@ -304,7 +318,7 @@ file has been loaded and parsed correctly.
 swagger-coverage-tool print-config
 ```
 
-- This command reads the configuration file (`swagger_coverage_config.yaml`, `swagger_coverage_config.json`, or `.env`)
-  and prints the final configuration values to the console.
+- This command reads the configuration file (`swagger_coverage_config.yaml`, `swagger_coverage_config.json`, or `.env`,
+  or a custom path set via `SWAGGER_COVERAGE_CONFIG_FILE_*`) and prints the final configuration values to the console.
 - It helps verify that the correct settings are being applied and is particularly useful if something is not working as
   expected.

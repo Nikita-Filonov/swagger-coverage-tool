@@ -14,6 +14,11 @@ from pydantic_settings import (
     PydanticBaseSettingsSource,
 )
 
+from swagger_coverage_tool.libs.config.base import (
+    get_env_config_file_or_default,
+    get_json_config_file_or_default,
+    get_yaml_config_file_or_default,
+)
 from swagger_coverage_tool.src.tools.types import ServiceKey, ServiceName
 
 
@@ -40,15 +45,15 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         extra='allow',
 
-        env_file=os.path.join(os.getcwd(), ".env"),
+        env_file=get_env_config_file_or_default(),
         env_prefix="SWAGGER_COVERAGE_",
         env_file_encoding="utf-8",
         env_nested_delimiter=".",
 
-        yaml_file=os.path.join(os.getcwd(), "swagger_coverage_config.yaml"),
+        yaml_file=get_yaml_config_file_or_default(),
         yaml_file_encoding="utf-8",
 
-        json_file=os.path.join(os.getcwd(), "swagger_coverage_config.json"),
+        json_file=get_json_config_file_or_default(),
         json_file_encoding="utf-8"
     )
 
