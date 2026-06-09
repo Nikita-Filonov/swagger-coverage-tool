@@ -58,7 +58,7 @@ class SwaggerLoader:
 
         try:
             logger.info(f"Reading Swagger schema from file: {self.service.swagger_file}")
-            raw = SwaggerRaw.model_validate_json(self.service.swagger_file.read_text())
+            raw = SwaggerRaw.model_validate_json(self.service.swagger_file.read_text(encoding='utf-8'))
             logger.info(f"Swagger schema successfully loaded from file: {self.service.swagger_file}")
             return raw.normalize()
 

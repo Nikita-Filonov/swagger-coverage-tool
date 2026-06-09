@@ -180,3 +180,27 @@ def test_load_from_file_invalid_json(tmp_path: Path):
 
     with pytest.raises(ValueError, match="Error loading Swagger schema"):
         loader.load_from_file()
+
+
+def test_load_from_file_reads_utf8_cyrillic(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    schema = {
+        "paths": {
+            "/users": {
+                "get": {
+                    "responses": {
+                        "200": {"description": "Успешный ответ"}
+                    }
+                }
+            }
+        }
+    }
+    file_path = tmp_path / "swagger.json"
+    file_path.write_bytes(json.dumps(schema, ensure_ascii=False).encode("utf-8"))
+
+    config = make_service_config_with_file(file_path)
+    config.swagger_url = None
+    loader = SwaggerLoader(config)
+    monkeypatch.setattr(SwaggerRaw, "normalize", lambda self: SwaggerNormalized(endpoints=[]))
+
+    result = loader.load_from_file()
+    assert isinstance(result, SwaggerNormalized)

@@ -24,7 +24,7 @@ class SwaggerCoverageHistoryStorage:
 
         try:
             logger.info(f"Loading history from file: {history_file}")
-            return CoverageHistoryState.model_validate_json(history_file.read_text())
+            return CoverageHistoryState.model_validate_json(history_file.read_text(encoding='utf-8'))
         except Exception as error:
             logger.error(f"Error loading history from file {history_file}: {error}")
             return CoverageHistoryState()
@@ -34,7 +34,7 @@ class SwaggerCoverageHistoryStorage:
 
         try:
             history_file.touch(exist_ok=True)
-            history_file.write_text(state.model_dump_json(by_alias=True))
+            history_file.write_text(state.model_dump_json(by_alias=True), encoding='utf-8')
             logger.info(f"History state saved to file: {history_file}")
         except Exception as error:
             logger.error(f"Error saving history to file {history_file}: {error}")

@@ -32,7 +32,7 @@ class SwaggerReportsStorage:
 
         try:
             json_report_file.touch(exist_ok=True)
-            json_report_file.write_text(state.model_dump_json(by_alias=True))
+            json_report_file.write_text(state.model_dump_json(by_alias=True), encoding='utf-8')
             logger.info(f'JSON report saved to {json_report_file}')
         except Exception as error:
             logger.error(f'Failed to write JSON report: {error}')

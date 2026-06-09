@@ -20,7 +20,7 @@ class SwaggerCoverageTrackerStorage:
             return EndpointCoverageList(root=[])
 
         results = [
-            EndpointCoverage.model_validate_json(file.read_text())
+            EndpointCoverage.model_validate_json(file.read_text(encoding='utf-8'))
             for file in results_dir.glob("*.json") if file.is_file()
         ]
 
@@ -37,7 +37,7 @@ class SwaggerCoverageTrackerStorage:
         result_file = results_dir.joinpath(f'{uuid.uuid4()}.json')
 
         try:
-            with open(result_file, 'w+') as file:
+            with open(result_file, 'w+', encoding='utf-8') as file:
                 file.write(coverage.model_dump_json())
 
         except Exception as error:
