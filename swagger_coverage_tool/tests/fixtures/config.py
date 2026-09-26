@@ -8,7 +8,9 @@ from swagger_coverage_tool.src.tools.types import ServiceKey, ServiceName
 
 
 @pytest.fixture
-def settings() -> Settings:
+def settings(tmp_path: Path) -> Settings:
+    results_dir = tmp_path / "results"
+    results_dir.mkdir(parents=True, exist_ok=True)
     return Settings(
         services=[
             ServiceConfig(
@@ -17,6 +19,7 @@ def settings() -> Settings:
                 swagger_url=HttpUrl("https://example.com/swagger.json"),
             )
         ],
+        results_dir=results_dir,
     )
 
 

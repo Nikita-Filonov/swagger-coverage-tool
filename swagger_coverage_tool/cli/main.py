@@ -1,5 +1,6 @@
 import click
 
+from swagger_coverage_tool.cli.commands.clear_results import clear_results_command
 from swagger_coverage_tool.cli.commands.copy_report import copy_report_command
 from swagger_coverage_tool.cli.commands.print_config import print_config_command
 from swagger_coverage_tool.cli.commands.save_report import save_report_command
@@ -26,6 +27,14 @@ def show_config():
     print_config_command()
 
 
+@click.command(
+    name="clear-results",
+    help="Remove collected coverage result files before a new test run."
+)
+def clear_results():
+    clear_results_command()
+
+
 @click.group()
 def cli():
     pass
@@ -34,6 +43,7 @@ def cli():
 cli.add_command(save_report)
 cli.add_command(copy_report)
 cli.add_command(show_config)
+cli.add_command(clear_results)
 
 if __name__ == '__main__':
     cli()

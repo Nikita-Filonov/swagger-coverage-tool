@@ -13,3 +13,4 @@ jobs:
     name: 🧪 test
     uses: ./.github/workflows/reusable-test.yml
     needs: lint
+    secrets: inherit

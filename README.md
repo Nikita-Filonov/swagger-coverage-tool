@@ -127,15 +127,24 @@ create_user()
 
 ### Coverage Report Generation
 
-Once the requests have been executed, coverage data will be collected into the `coverage-results` folder by default. You
-can generate a detailed coverage report by running the following command:
+After each tracked HTTP request, the tool stores coverage data as JSON files in `./coverage-results/` by default.
+The folder is created automatically, and its files remain there between test runs.
+
+Once your tests are complete, generate a detailed coverage report with:
 
 ```shell
 swagger-coverage-tool save-report
 ```
 
-This will generate a coverage report based on the collected data. The report will be saved as an HTML file (index.html)
-that you can view or share.
+`save-report` includes every coverage result in the configured `results_dir`, including files from earlier test runs.
+
+This will generate:
+
+- `index.html` — a standalone HTML report that you can open, share, or publish.
+- `coverage-report.json` — a structured JSON report for CI/CD summaries and custom integrations.
+
+Run `swagger-coverage-tool save-report` from the directory containing your configuration files, or set custom
+config paths via `SWAGGER_COVERAGE_CONFIG_FILE_*`.
 
 ## Configuration
 
@@ -270,8 +279,6 @@ Once configured, the tool automatically:
 - Writes raw coverage data to `coverage-results/`.
 - Stores optional historical data and generates an HTML report at the end.
 
-No manual data manipulation is required – the tool handles everything automatically based on your config.
-
 ## Command-Line Interface (CLI)
 
 The Swagger Coverage Tool provides several CLI commands to help with managing and generating coverage reports.
@@ -322,3 +329,33 @@ swagger-coverage-tool print-config
   or a custom path set via `SWAGGER_COVERAGE_CONFIG_FILE_*`) and prints the final configuration values to the console.
 - It helps verify that the correct settings are being applied and is particularly useful if something is not working as
   expected.
+
+### Command: `clear-results`
+
+Removes JSON files from the configured `results_dir`. Run it before starting a new test run when the next report should
+include only that run. Keep `results_dir` dedicated to coverage results: all JSON files there are removed except
+configured history and report files. Non-JSON files and nested directories are preserved.
+
+**Usage:**
+
+```shell
+swagger-coverage-tool clear-results
+```
+
+Coverage history is preserved, so reports can show trends across test runs while counting only the current run's cases.
+The command succeeds if `results_dir` does not exist and exits with an error if files cannot be removed.
+
+## Troubleshooting
+
+### The report is empty or missing data
+
+- Ensure that your HTTP client methods use `track_coverage_httpx()` or `track_coverage_requests()`.
+- Match the tracked endpoint name and HTTP method to the Swagger schema, including path placeholders.
+- Run `swagger-coverage-tool save-report` from the directory containing your configuration, or set custom config paths.
+- Use `swagger-coverage-tool print-config` to check the resolved settings.
+- Check that the configured `results_dir` contains `.json` files from your tests.
+
+### The report includes cases from earlier test runs
+
+Run `swagger-coverage-tool clear-results` before starting a new test run, then execute your tests and run
+`swagger-coverage-tool save-report`.
